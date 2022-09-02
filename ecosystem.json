@@ -1,0 +1,42 @@
+{
+	"apps": [
+
+		{
+			"name": "EPICURE-SERVER",
+			"script": "index.js",
+			"env": {
+				 "NODE_ENV": "development"
+			}
+		}
+	],
+
+
+	"deploy": {
+
+		"staging": {
+
+			"key": "/Users/stephanbenchemoul/Documents/Projects/SSH-KEYS/new-epicure-ssh-key.cer",
+
+			"user": "ubuntu",
+
+			"host": ["ec2-3-21-27-193.us-east-2.compute.amazonaws.com"],
+
+			"ref": "origin/develop",
+
+			"repo": "git@github.com:stephanmoveo/epicure-backend.git",
+
+			"path": "/home/ubuntu/epicure/server",
+
+			"ssh_options": "StrictHostKeyChecking=no",
+
+			"post-deploy": "mkdir -p logs && npm i && pm2 reload ecosystem.json --env staging",
+
+			"pre-deploy-local": "echo 'Deploying code to servers'",
+
+			"env": {
+				"NODE_ENV": "staging"
+			}
+		}
+	}
+}
+
